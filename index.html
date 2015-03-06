@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+  	<title>What's my PAZ?</title>
+  	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  	<script src='paz.geojson'></script>
+	<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
+	<style>
+	  body { margin:0; padding:0; }
+	  .leaflet-top.leaflet-left {
+	  	margin-top: 40px;
+	  }
+	  #map { position:absolute; top:0; bottom:0; width:100%; }
+	  #title {
+			position:absolute;
+			width: 100%;
+			font-family: sans-serif;
+			font-size: 100%;
+			color: #fff;
+			background: #404040;
+			z-index: 999999;
+			opacity: .7;
+			filter:alpha(opacity=70);
+			padding:10px;
+		}
+	</style>
+  </head>
+  <body>
+  	<div id="title">What's my PAZ (Protective Action Zone)?</div>
+  	<div id='map'></div>
+	<script>
+		L.mapbox.accessToken = 'pk.eyJ1Ijoic2x1Z2lzIiwiYSI6IlB5TlZENVUifQ.Z597Ia0qffZlYcGpbJtzTA';
+		var map = L.mapbox.map('map', 'slugis.bbd863d8').setView([35.2720, -120.7185], 10);
+		var zones = L.geoJson(paz, {
+			style: function(feature) {
+			    switch (feature.properties.NAME2_) {
+			        case '1': return {color: "#000000", fillColor: "#ff6600"};
+			        case '2': return {color: "#000000", fillColor: "#ff0000"};
+			        case '3': return {color: "#000000", fillColor: "#ff9900"};
+			        case '4': return {color: "#000000", fillColor: "#99ff00"};
+			        case '5': return {color: "#000000", fillColor: "#ffff00"};
+			        case '6': return {color: "#000000", fillColor: "#ffcc00"};
+			        case '7': return {color: "#000000", fillColor: "#00cc00"};
+			        case '8': return {color: "#000000", fillColor: "#009999"};
+			        case '9': return {color: "#000000", fillColor: "#0033cc"};
+			        case '10': return {color: "#000000", fillColor: "#330099"};
+			        case '11': return {color: "#000000", fillColor: "#660099"};
+			        case '12': return {color: "#000000", fillColor: "#cc0099"};
+			    }
+			}
+		}).addTo(map);
+
+	</script>
+  </body>
+</html>
