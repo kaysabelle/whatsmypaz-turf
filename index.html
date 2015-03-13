@@ -63,13 +63,14 @@
 			var radius = e.accuracy/2;
 
 			var curLoc = turf.point([e.latitude, e.longitude]);
-			console.log(curLoc);
 
 			var paz_features = paz.features;
 
 			for (var i=0; i<12; i++) {
 				var curFeature = paz_features[i];
-				if (turf.inside(curLoc, curFeature)) {
+				var polygon = turf.polygon(curFeature.geometry.coordinates);
+
+				if (turf.inside(curLoc, polygon)) {
 					console.log("You are inside a PAZ!");
 				}
 				else {
@@ -77,6 +78,9 @@
 				}
 			}
 		}
+
+		//good example
+		//https://paulcrickard.wordpress.com/2015/01/07/geoprocessing-on-the-client-side-with-turf-js/
 
 		function onLocationError(e) {
 			console.log("ERROR!");
